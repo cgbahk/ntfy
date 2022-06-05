@@ -4,10 +4,14 @@ from subprocess import PIPE, Popen, check_output, CalledProcessError
 from sys import platform, stdout
 
 
+def shell_output(cmd):
+    return check_output(shlex.split(cmd)).decode()
+
+
 def linux_window_is_focused():
     xprop_cmd = shlex.split('xprop -root _NET_ACTIVE_WINDOW')
     try:
-        xprop_window_id = int(check_output(xprop_cmd, stderr=PIPE).split()[-1], 16)
+        xprop_window_id = int(shell_output(xprop_cmd).split()[-1], 16)
     except CalledProcessError:
         return False
     except ValueError:
