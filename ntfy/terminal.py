@@ -8,6 +8,18 @@ def shell_output(cmd):
     return check_output(shlex.split(cmd)).decode()
 
 
+def tmux_is_focused():
+    if "TMUX" not in environ:
+        return False
+
+    cur_pane = environ['TMUX_PANE']
+
+    cmd = 'tmux list-panes -F "#{pane_id}:#{pane_active}:#{window_active}:#{session_attached}"'
+    panes = shell_output(cmd)
+
+    return True if panes.find(cur_pane + ':1:1:1') != -1 else False
+
+
 def linux_window_is_focused():
     xprop_cmd = shlex.split('xprop -root _NET_ACTIVE_WINDOW')
     try:
@@ -67,9 +79,12 @@ def darwin_app_shell_is_focused():
 
 
 def is_focused():
+    if "TMUX" in environ:
+        return tmux_is_focused()
+
     if platform.startswith('linux') and environ.get('DISPLAY'):
         return linux_window_is_focused()
     elif platform == 'darwin':
         return darwin_app_shell_is_focused()
-    else:
-        return False
+
+    return False
