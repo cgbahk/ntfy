@@ -14,10 +14,12 @@ def tmux_is_focused():
 
     cur_pane = environ['TMUX_PANE']
 
-    cmd = 'tmux list-panes -F "#{pane_id}:#{pane_active}:#{window_active}:#{session_attached}"'
+    # Let's interpret 'window active' as focused.
+    # Previously only 'pane active' was regarded as focused, but that makes too many notification
+    cmd = 'tmux list-panes -F "#{pane_id}:#{window_active}:#{session_attached}"'
     panes = shell_output(cmd)
 
-    return True if panes.find(cur_pane + ':1:1:1') != -1 else False
+    return True if panes.find(cur_pane + ':1:1') != -1 else False
 
 
 def linux_window_is_focused():
