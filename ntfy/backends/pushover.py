@@ -109,6 +109,8 @@ def notify(title,
     resp = requests.post(
         'https://api.pushover.net/1/messages.json',
         data=data,
+        # Clear proxy. Or, occational proxy environment variable sourced, causing SSL error
+        proxies={"http": "", "https": ""},
         headers={
             'User-Agent': USER_AGENT,
         })
