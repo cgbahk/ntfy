@@ -8,11 +8,10 @@ deps = ['requests', 'ruamel.yaml', 'appdirs']
 extra_deps = {
     ':sys_platform == "win32"': ['pywin32'],
     ':sys_platform == "darwin"': ['pyobjc-core', 'pyobjc'],
-    'xmpp': [
-        'sleekxmpp', 'dnspython' if version_info[0] < 3 else 'dnspython3'],
+    'xmpp': ['sleekxmpp', 'dnspython3'],
     'telegram': ['telegram-send'],
     'instapush': ['instapush'],
-    'emoji': ['emoji'],
+    'emoji': ['emoji >= 1.6.2'],
     'pid':['psutil'],
     'slack':['slack_sdk'],
     'rocketchat':['rocketchat-API'],
@@ -20,7 +19,7 @@ extra_deps = {
 }
 test_deps = ['mock', 'sleekxmpp', 'emoji', 'psutil']
 
-long_description = open('README.rst').read()
+long_description = "See the repo readme for mor information"
 
 setup(
     name='ntfy',
@@ -47,13 +46,7 @@ setup(
 
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
 
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
     ],
 
     keywords='push notification',
