@@ -1,0 +1,8 @@
+dependencies:
+  - python
+  - requests
+  - ruamel.yaml
+  - appdirs
+  - pyobjc-core
+  # ... and, manual install of this `ntfy` project
+  # TODO `pyobjc` from conda-forge
