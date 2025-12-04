@@ -3,6 +3,6 @@ dependencies:
   - requests
   - ruamel.yaml
   - appdirs
-  - pyobjc-core
+  - pyobjc-core  # In case of macOS
   # ... and, manual install of this `ntfy` project
   # TODO `pyobjc` from conda-forge
