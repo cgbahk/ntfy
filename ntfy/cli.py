@@ -66,6 +66,8 @@ def run_cmd(args):
         return None, None
     if args.unfocused_only and is_focused():
         return None, None
+    if args.only_on_failure and retcode == 0:
+        return None, None
     message = _result_message(args.command if not args.hide_command else None,
                               retcode, stdout, stderr, duration,
                               emojize is not None and not args.no_emoji)
@@ -265,6 +267,11 @@ done_parser.add_argument(
     action='store_true',
     default=False,
     help="Do not display the executed command in any notifications")
+done_parser.add_argument(
+    '--only-on-failure',
+    action='store_true',
+    default=False,
+    help="Only notify when command fails")
 done_parser.set_defaults(func=run_cmd)
 
 shell_integration_parser = subparsers.add_parser(
